@@ -1,0 +1,70 @@
+<div class="page-header">
+<div class="developer">
+    <h1>
+        {{singleDeveloper.dev.name}}
+    </h1>
+    </div>
+    </div>
+<div class="row">
+    <div class="col-md-6">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{singleDeveloper.format}}" ng-model="singleDeveloper.from" is-open="singleDeveloper.status.opened" min-date="singleDeveloper.minDate" max-date="singleDeveloper.maxDate" datepicker-options="singleDeveloper.dateOptions" date-disabled="singleDeveloper.disabled(singleDeveloper.date, singleDeveloper.mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="singleDeveloper.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{singleDeveloper.format}}" ng-model="singleDeveloper.to" is-open="singleDeveloper.status.toOpened" min-date="singleDeveloper.from" max-date="singleDeveloper.maxDate" datepicker-options="singleDeveloper.dateOptions" date-disabled="singleDeveloper.disabled(singleDeveloper.date, singleDeveloper.mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="singleDeveloper.openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+        </div>
+<div class="row">
+    <form>
+    <div class="btn-group col-md-6" dropdown is-open="status.isopen">
+      <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle >
+          {{singleDeveloper.slots}} Slots <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+        <li role="menuitem" ng-click="singleDeveloper.slots=1"><a href="#">1</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=2"><a href="#">2</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=3"><a href="#">3</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=4"><a href="#">4</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=5"><a href="#">5</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=6"><a href="#">6</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=7"><a href="#">7</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=8"><a href="#">8</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=9"><a href="#">9</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=10"><a href="#">10</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=11"><a href="#">11</a></li>
+        <li role="menuitem" ng-click="singleDeveloper.slots=12"><a href="#">12</a></li>
+      </ul>
+    </div>
+    </div>
+    <div class="row">
+    <input class="btn submit" type="submit" ng-click="singleDeveloper.block(singleDeveloper.dev)"/>
+    </div>
+    </form>
+</div>
+<div class="modal {{singleDeveloper.processed ? 'ng-show' : 'ng-hide'}}">
+<div class="modal-dialog">
+    <div class="modal-header">
+            <h3 class="modal-title">{{singleDeveloper.success ? 'Erfolg' : 'Fehler'}}</h3>
+        </div>
+        <div class="modal-body">
+            {{singleDeveloper.errorMessage}}
+        </div>
+        <div class="modal-footer">
+            <button ng-show="!singleDeveloper.success" class="btn btn-primary" type="button" ng-click="singleDeveloper.cancel()">OK</button>
+            <a ng-show="singleDeveloper.success" href="developers/single?id={{singleDeveloper.dev._id}}" class="btn btn-primary">
+                OK
+            </a>
+        </div>
+</div>
+    </div>

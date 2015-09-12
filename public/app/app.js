@@ -1,13 +1,16 @@
 angular.module('userApp', [
 	'ngAnimate',
 	'ngRoute',
+    'ui.bootstrap',
 	'app.routes',
 	'authService',
+    'dateService',
 	'mainCtrl',
 	'userCtrl',
 	'userService',
     'developerService', 
-    'developerCtrl'
+    'developerCtrl',
+    'singleDeveloperCtrl'
 ])
 
 //application integration to integrate token into requests

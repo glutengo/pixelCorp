@@ -14,25 +14,23 @@ angular.module('app.routes', ['ngRoute'])
 		controller: 'mainController',
 		controllerAs: 'login'
 	})
-
-	.when('/users', {
-		templateUrl: 'app/views/pages/users/all.html',
-		controller: 'userController',
-		controllerAs: 'user'
-	})
-
-	//form to create a new user
-	//same view as edit page
-	.when('/users/create', {
-		templateUrl: 'app/views/pages/users/single.html',
-		controller: 'userCreateController',
-		controllerAs: 'user'
-	})
     
     .when('/developers', {
-        templateUrl: 'app/views/pages/developers.html',
+        templateUrl: 'app/views/pages/developers/all.html',
         controller: 'developerController',
         controllerAs: 'developer'
+    })
+    
+    .when('/developers/single', {
+        templateUrl: 'app/views/pages/developers/single.html',
+        controller: 'singleDeveloperController',
+        controllerAs: 'singleDeveloper'
+    })
+    
+    .when('/developers/block', {
+        templateUrl: 'app/views/pages/developers/block.html',
+        controller: 'singleDeveloperController',
+        controllerAs: 'singleDeveloper'
     })
     ;
 

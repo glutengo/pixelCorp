@@ -27,9 +27,10 @@ angular.module('developerCtrl', ['developerService'])
         var to = new Date("2015-09-20T21:59:59+00:00");
         console.log(from);
         console.log(to);
+        var pm = "pm2";
         //6 blocks. expected: at first: Saturday(2) and Sunday(full). Later: Monday (full) and Tuesday (2)
         var blocks = 8;
-        Developer.block(developer,from,to,blocks);
+        Developer.block(developer,from,to,blocks,pm);
         
     }
 

@@ -1,10 +1,78 @@
 main {
-	padding-top:	30px;
+	//padding-top:	30px;
 }
 
 /* HEADER */
 header .navbar {
 	border-radius: 0;
+}
+
+/*Single developer page */
+.day{
+    font-size: 20px;
+    width: 13%;
+    margin: 0.64%;
+    float: left;
+    background-color: rgba(0,0,0,0.1);
+    height: 400px;
+    text-align: center;
+    padding: 10px;
+    border-radius:2px;
+}
+
+.modal{
+    background-color:rgba(0,0,0,0.2);
+    display:block !important;
+}
+
+input.submit{
+    float:right;
+}
+
+.modal-dialog{
+    background-color:white;
+}
+
+form .btn{
+    min-width:200px;
+}
+
+td.buttons{
+    text-align:center;
+}
+
+.slot{
+        background-color: #BABABA;
+    width: 100%;
+    height: 40px;
+    /* margin: 5%; */
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.button.block{
+    float:right;
+    margin-top:-70px;
+}
+
+.month{
+    text-align:center;
+}
+
+.month .glyphicon{
+    font-size:30px;
+}
+
+.month .month-change{
+    display:inline-block;
+    width:40px;
+    height:40px;
+    background-color:black;
+}
+
+.month h2{
+    display:inline-block;
+    margin:0 40px;
 }
 
 /* ANIMATIONS
@@ -28,4 +96,8 @@ header .navbar {
 @-moz-keyframes spin{
 	from { -moz-transform: rotate(0deg);}
 	to { -moz-transform: rotate(360deg);}
+}
+
+@media (min-width: 1800px) .container{
+    width:1500px;
 }

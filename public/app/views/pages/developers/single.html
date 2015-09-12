@@ -1,0 +1,34 @@
+<div class="page-header">
+<div class="developer">
+    <h1>
+        {{singleDeveloper.dev.name}}
+    </h1>
+    <a href="developers/block?id={{singleDeveloper.dev._id}}" class="button block">
+        <h3>Block</h3>
+    </a>
+    </div>
+    </div>
+    <div class="month">
+       <span class="glyphicon glyphicon-arrow-left" ng-click="singleDeveloper.get(singleDeveloper.dev._id,09,2015)"></span>
+        <h2>
+            {{singleDeveloper.month.name}}
+        </h2>
+       <span class="glyphicon glyphicon-arrow-right" ng-click="singleDeveloper.get(singleDeveloper.dev._id,10,2015)"></span>
+    </div>
+
+</div>
+
+<div class="days">
+    <div class="day" ng-repeat="day in singleDeveloper.month.days">
+        <div class="weekday">{{singleDeveloper.weekdays[day.date.getDay()]}}</div>
+        <div class="date">{{day.date.getDate()}}</div>
+        <div class="month">
+            {{singleDeveloper.month.name}}
+        </div>
+        <div ng-repeat="(ind,slotContainer) in day.pm">
+            <div class="slot" ng-repeat="slot in singleDeveloper.getNumber(slotContainer) track by $index   ">
+                {{ind}}
+            </div>
+        </div>
+    </div>
+</div>

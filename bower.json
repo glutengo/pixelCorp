@@ -1,0 +1,16 @@
+{
+  "name": "pixelCorp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/glutengo/pixelCorp",
+  "authors": [
+    "Markus <markus@glutting.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

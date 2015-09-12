@@ -1,0 +1,24 @@
+<div class="page-header">
+<h1>
+	Developers
+</h1>
+</div>
+
+<table class="table table-bordered table-striped" ng-show="developer.developers">
+	<thead>
+		<tr>
+			<th>name</th>
+			<th class="col-sm-2"></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<!-- LOOP OVER THE USES -->
+		<tr ng-repeat = "dev in developer.developers">
+			<td>{{dev.name}}</td>
+			<td class="col-sm-2 buttons">
+				<a ng-href="/developers/single?id={{dev._id}}" class="btn btn-primary">View</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

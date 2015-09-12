@@ -8,6 +8,80 @@ var superSecret = config.secret;
 
 module.exports = function(app, express){
 
+    //init database
+    
+    //init users
+    User.remove(function(err) { 
+   console.log('collection removed') 
+});
+    var user01 = new User();
+    user01.name = "Abraham";
+    user01.username = "pm1";
+    user01.password = "pm1";
+    user01.save(function(err){
+			if(err){
+				console.log(err);
+			}
+            console.log('created');
+    });
+    
+    var user02 = new User();
+    user02.name = "Bob";
+    user02.username = "pm2";
+    user02.password = "pm2";
+    user02.save(function(err){});
+    
+    var user03 = new User();
+    user03.name = "Charlie";
+    user03.username = "pm3";
+    user03.password = "pm3";
+    user03.save(function(err){});
+    
+    Developer.remove(function(err) { 
+   console.log('collection removed') 
+});
+    
+    //init developers
+var dev01 = new Developer();
+    dev01.name = 'yuri';
+    dev01.slots = [];
+dev01.save();    
+
+    var dev02 = new Developer();
+    dev02.name = 'jonny';
+    dev02.slots = [];
+dev02.save();
+    
+    var dev03 = new Developer();
+    dev03.name = 'chris';
+    dev03.slots = [];
+dev03.save();
+    
+    var dev04 = new Developer();
+    dev04.name = 'steve';
+    dev04.slots = [];
+dev04.save();
+    
+    var dev05 = new Developer();
+    dev05.name = 'linus';
+    dev05.slots = [];
+dev05.save();
+    
+    var dev06 = new Developer();
+    dev06.name = 'karl';
+    dev06.slots = [];
+dev06.save();
+    
+    var dev07 = new Developer();
+    dev07.name = 'julia';
+    dev07.slots = [];
+dev07.save();
+    
+    var dev08 = new Developer();
+    dev08.name = 'ivette';
+    dev08.slots = [];
+dev08.save();
+    
 	//get an instance of the express router
 var apiRouter = express.Router();
 
@@ -112,28 +186,48 @@ apiRouter.route('/developers')
 		})
 	}); 
     
+apiRouter.route('/developers/:dev_id')
+
+	//get the user with that id
+	//(accessed at GET http://localhost:8080/api/users/:user_id)
+	.get(function(req, res){
+		Developer.findById(req.params.dev_id, function(err, dev){
+			if(err) res.send(err);
+			//return that user
+			res.json(dev);
+		});
+	})    
+    
 apiRouter.route('/developers/block')
 
 	//get all the users (accessed at GET http://localhost:8080/api/users)
 	.post(function(req, res){
         var blocks = req.body.blocks;
         var dev = null;
+        var pm = req.body.pm;
+        console.log("PM: "+pm);
         Developer.findById(req.body.developer._id, function(err, developer){
 			if(err) res.send(err);
 			dev = developer;
             while(blocks > 0){
-                blocks = dev.blockNextFreeDay(req.body.from,blocks);
+                blocks = dev.block(req.body.from,req.body.to,blocks,pm);
             }
             console.log(blocks);
-            console.log(dev);
-             //save the user and check for erros
-            dev.save(function(err){
-                if(err){
-                    //duplicate entry
-                    console.log(err);
-                }
-                console.log('developer blocked');
-            });
+            console.log(blocks == null);
+            if(blocks == null){
+                res.json({'message':'Der Entwickler konnte für diesen Zeitraum aufgrund eines Konfliktes nicht blockiert werden','code':500});
+            }
+            else{
+                 //save the user and check for erros
+                dev.save(function(err){
+                    if(err){
+                        //duplicate entry
+                        console.log(err);
+                    }
+                    console.log('developer blocked');
+                    res.json({'message':'Der Entwickler wurde für den gewünschten Zeitraum blockiert','code':200});
+                });
+            }
 		});
 	});      
     

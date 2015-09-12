@@ -10,12 +10,18 @@ angular.module('developerService', [])
 		return $http.get('/api/developers');
 	};
     
-    developerFactory.block = function(developer, from, to, blocks){
+	//get a single user
+	developerFactory.get = function(id){
+		return $http.get('/api/developers/' + id);
+	};  
+    
+    developerFactory.block = function(developer, from, to, blocks,pm){
         var postData = {
             developer: developer,
             from: from,
             to: to,
-            blocks: blocks
+            blocks: blocks,
+            pm:pm
         }
         console.log(postData);
         return $http.post('/api/developers/block',postData);
@@ -23,4 +29,4 @@ angular.module('developerService', [])
 
 	//return our entire userFactory object
 	return developerFactory;
-})
+}) 

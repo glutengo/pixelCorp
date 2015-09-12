@@ -40,7 +40,7 @@ angular.module('mainCtrl', [])
 				vm.processing = false;
 				//if a user succesfully logs in, redirect to users page
 				if(data.success)
-					$location.path('/users');
+					$location.path('/developers');
 				else vm.error = data.message;
 			});
 	};

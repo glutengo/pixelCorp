@@ -6,48 +6,82 @@ var bcrypt = require('bcrypt-nodejs');
 //user schema
 var DeveloperSchema = new Schema({
 		name: String,
-	    slots: [{date: Date, amount: Number}]
+	    slots: [{date: Date, amount: Number, pm: Schema.Types.Mixed}]
 });
 
-DeveloperSchema.methods.blockNextFreeDay = function(from,blocks){
+function compare(a,b) {
+  if (a.date < b.date)
+    return -1;
+  if (a.date > b.date)
+    return 1;
+  return 0;
+}
+
+DeveloperSchema.methods.block = function(from,to,slots,pm){
     console.log("GET NEXT FREE DAY");
     var dev = this;
-    console.log(dev);
     var fromDate = new Date(from);
+    var toDate = new Date(to);
     var thisDate = new Date();
-    for(var i=0; i<dev.slots.length; i++){
-        thisDate = dev.slots[i].date;
-        var datesEqual = (fromDate.getTime() == thisDate.getTime());
-        if(datesEqual && dev.slots[i].amount < 4){
-            console.log('free slots'); 
-            if(blocks > 4-dev.slots[i].amount){
-                dev.slots[i].amount = 4;
-                blocks -= 4;
-                return blocks;
-            }
-            else{
-                dev.slots[i].amount += blocks;
-                blocks = 0;
-                return blocks;
-            }
+    dev.slots = dev.slots.sort(compare);
+     while(slots > 0){
+        while(fromDate.getDay() == 0 || fromDate.getDay() == 6){
+             fromDate = new Date(fromDate.getTime() + 24 * 60 * 60 * 1000);
         }
-    }
-    var nextDay = new Date(thisDate.getTime() + 24 * 60 * 60 * 1000); 
-    if(blocks > 4){
-        dev.slots.push({
-            date: nextDay,
-            amount: 4
+        if(fromDate.getTime() > toDate.getTime()){
+            console.log("ERROR!");
+            return null;
+        }
+        var found = false;
+        dev.slots.forEach(function(slot){
+            //check if there is an entry for the day and if so, if the day is not already full
+            var datesEqual = (fromDate.getTime() == slot.date.getTime());
+            var slotSpaces = 4-slot.amount;
+            console.log("SLOT AMOUNT: " + slot.amount);
+            if(datesEqual)found = true;
+            if(datesEqual && slotSpaces > 0){
+                var slotsToAdd = slots;
+                if(slotsToAdd > slotSpaces) {
+                    slotsToAdd = slotSpaces;
+                }
+                slots -= slotsToAdd;
+                //check if pm exists and if so if entry for given pm exists
+                 if(slot.pm){
+                    if(slot.pm[pm]){
+                        slot.pm[pm] += slotsToAdd; 
+                    }
+                    else{
+                        slot.pm[pm] = slotsToAdd;
+                    }
+                 }
+                else{
+                    slot.pm = {}
+                    slot.pm[pm] = slotsToAdd;
+                }
+                slot.amount += slotsToAdd;
+            }
         });
-        blocks -= 4;
+        if(found == false){
+            var slotsToAdd = slots;
+            var slotSpaces = 4;
+                if(slotsToAdd > slotSpaces) {
+                    slotsToAdd = slotSpaces;
+                }
+            slots -= slotsToAdd;
+            var slot = {
+                date: fromDate,
+                amount: slotsToAdd,
+                pm:{}
+            };
+            slot.pm[pm] = slotsToAdd
+            dev.slots.push(slot);
+        }
+        
+        //check next day
+        fromDate = new Date(fromDate.getTime() + 24 * 60 * 60 * 1000);
     }
-    else{
-        dev.slots.push({
-            date: nextDay,
-            amount: blocks
-        })
-        blocks = 0;
-    }
-    return blocks;
+   
+    return slots;
     }
 
 //return the model
