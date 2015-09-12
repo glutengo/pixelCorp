@@ -1,0 +1,13 @@
+<div class="page-header">
+<h1>
+	Developers
+</h1>
+</div>
+
+<div class="developer" ng-repeat="dev in developer.developers">
+    {{dev.name}}
+    <div class="slot" ng-repeat="slot in dev.slots track by $index">
+        <div ng-bind="slot"></div>
+    </div>
+    <a href="#" ng-click="developer.block(dev)">block</div>
+</div>
