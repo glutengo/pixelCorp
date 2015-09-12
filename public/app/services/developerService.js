@@ -16,6 +16,15 @@ angular.module('developerService', [])
 	};  
     
     developerFactory.block = function(developer, from, to, blocks,pm){
+        //normalize dates
+        from.setHours(12);
+        from.setMinutes(0);
+        from.setSeconds(0);
+        from.setMilliseconds(0);
+        to.setHours(12);
+        to.setMinutes(0);
+        to.setSeconds(0);
+        to.setMilliseconds(0);
         var postData = {
             developer: developer,
             from: from,
